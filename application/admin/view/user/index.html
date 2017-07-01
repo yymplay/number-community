@@ -1,0 +1,149 @@
+
+{include file="index/header"}
+<body>
+
+<div id="wrapper">
+
+    {include file="index/nav"}
+
+    <div id="page-wrapper">
+
+    <div class="container-fluid" >
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-table"></i>用户列表
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div>
+          <button  id="button-add" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加 </button>
+        </div>
+        <div class="row">
+        <form action="index.php?s=admin/user/index" method="post">
+          <div class="col-md-3">
+            <div class="input-group">
+              <span class="input-group-addon">搜索</span>
+              <select class="form-control" name="type">
+                  <option value='0' <?php if($type==0){echo "selected='selected'";}?> >全部</option>
+                  <option value="1" <?php if($type==1){echo "selected='selected'";}?> >手机号</option>
+                  <option value="2" <?php if($type==2){echo "selected='selected'";}?> >姓名</option>
+                  <option value="3" <?php if($type==3){echo "selected='selected'";}?> >所在地</option>
+                
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="input-group">
+              <input class="form-control" name="search_keywords" type="text" value="{$search_keywords}" placeholder="" />
+                <span class="input-group-btn">
+                  <button id="sub_data" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+          </div>
+        </form>
+      </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3></h3>
+                <div class="table-responsive">
+                    <form id="singcms-listorder">
+                    <table class="table table-bordered table-hover singcms-table">
+                        <thead>
+                        <tr>
+                            
+                            <th>id</th>
+                            <th>手机号</th>
+    
+                            <th>姓名</th>
+                            <th>角色名</th>
+                            <th>所在地</th>
+                            <th>信息完善</th>
+                            <th>付费</th>
+
+
+                            
+
+                            <th>注册时间</th>
+
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($data as $vv):?>
+                            <tr>
+                                
+                                <td>{$vv.id}</td>
+                                <td>{$vv.account}</td>
+                                <td>{$vv.xingming}</td>
+                                
+                                <td>{$vv.name}</td>
+                                <td>{$vv.province}</td>
+                                <td ><?php echo getStatus($vv['xingming'],'√','×');?></td>
+                                <td><?php echo getStatus($vv['order_id'],'√','×');?></td>
+                                
+
+                                <td><?php echo $vv['create_time'];?></td>
+
+                                <td>
+                                <a href="javascript:void(0)">
+                                    <span class="fa fa-search fa-lg" aria-hidden="true" id="singcms-look" attr-id="{$vv.id}" ></span>
+                                </a>
+                                
+                                <a href="javascript:void(0)">
+                                    <span class="fa fa-edit fa-lg" aria-hidden="true"   id="user-edit" attr-id="{$vv.id}"></span>
+                                </a>   
+                                
+                                </td>
+                            </tr>
+                        <?php endforeach;?>
+
+                        </tbody>
+                    </table>
+                    </form>
+                    <nav>
+                        <ul class="pagination">
+                            {$pageRes}
+                        </ul>
+                    </nav>
+                   
+                </div>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- Morris Charts JavaScript -->
+<script>
+
+    var SCOPE = {
+        'add_url' : 'index.php?s=admin/user/add',
+        'edit_url' : 'index.php?s=admin/user/setinfo',
+        'look_url' : 'index.php?s=admin/user/look',
+        'set_status_url' : 'index.php?s=admin/user/setStatus',
+        'listorder_url' : 'index.php?s=admin/user/listorder',
+
+    }
+</script>
+{include file="index/footer"}
+
+
+

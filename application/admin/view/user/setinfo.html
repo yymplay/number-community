@@ -1,0 +1,851 @@
+
+{include file="index/header"}
+<body>
+<script type="text/javascript" src="./js/jquery.cityselect.js"></script>
+<!-- 时间插件 -->
+<link href="./datepicker/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="./datepicker/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./datepicker/datepicker-zh_cn.js"></script>
+<div id="wrapper">
+
+    {include file="index/nav"}
+
+    <div id="page-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="index.php?s=admin/user/index">用户列表</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-edit"></i> 设置信息
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-6">
+
+                <form class="form-horizontal" id="singcms-form">
+                    <input type="hidden" name="member_id" value="{$member_id}" />
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>基本信息 
+                    </li>
+                </ol>
+            </div>
+</div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="name" class="form-control" id="inputname" placeholder="" value="{$memberinfo.name}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label"><span style="color:red;">*</span> 身份证号:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="identity" id="inputPassword3" placeholder="" value="{$memberinfo.identity}" >
+                        </div>
+                    </div>
+                    <?php if($memberinfo['sfzz']):?>
+                    <div class="form-group">
+                          <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 身份证正面:</label>
+                          <div class="col-sm-5" id="append_img" style="position：relative;">
+                          <span>
+                            <!-- <button type="button" class="btn btn-default" id="up_btn" >点击上传</button> -->
+                            <input id="file_upload"  type="file" name="sfzz" style="opacity: 0;position:absolute;" onchange="$('#sfzz').remove();$('#file_upload').css('opacity','');">
+
+                            <img id="sfzz" src="/uploads/{$memberinfo.sfzz}" width="150" height="150" onClick="unsetimg()" style="cursor:pointer;">
+                          </span>
+                            
+                            
+                          </div>
+                    </div>
+                    <div class="form-group">
+                          <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 身份证背面:</label>
+                          <div class="col-sm-5" id="append_img" style="position：relative;">
+                          <span>
+                            <!-- <button type="button" class="btn btn-default" id="up_btn" >点击上传</button> -->
+                            <input id="file_upload2"  type="file" name="sfzf" style="opacity: 0;position:absolute;" onchange="$('#sfzf').remove();$('#file_upload2').css('opacity','');">
+                            <img id="sfzf" src="/uploads/{$memberinfo.sfzf}" width="150" height="150" onClick="unsetimg2()" style="cursor:pointer;">
+                          </span>
+                            
+                            
+                          </div>
+                    </div>
+                    <?php else:?>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label"><span style="color:red;">*</span> 身份证正面:</label>
+                        <div class="col-sm-5">
+                            <input type="file"  name="sfzz" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label"><span style="color:red;">*</span> 身份证背面:</label>
+                        <div class="col-sm-5">
+                            <input type="file"  name="sfzf">
+                        </div>
+                    </div>
+                    <?php endif;?>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 有效通讯地址:</label>
+                        <div class="col-sm-5" id="tongxun_address">
+                            <select class="prov" name="province"></select> 
+                            <select class="city" disabled="disabled" name="city"></select>
+                            <select class="dist" disabled="disabled" name="area"></select>
+                            <input type="text" class="form-control" name="address" id="inputPassword3" placeholder="请输入详细地址" value="{$memberinfo.address}">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>详细信息 
+                    </li>
+                </ol>
+            </div>
+</div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 性别:</label>
+                        <div class="col-sm-5" style="padding-top:5px;">
+                            <input type="radio" name="detail_sex"  id="inputname" placeholder="" value="男" <?php if($memberinfo['detail_info']['detail_sex']!='女'){echo "checked='checked'";}?>>男
+                            <input type="radio" name="detail_sex"  id="inputname" placeholder="" value="女" <?php if($memberinfo['detail_info']['detail_sex']=='女'){echo "checked='checked'";}?>>女
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 出生日期:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_birthday" class="form-control" id="birthday" placeholder="" value="{$memberinfo.detail_info.detail_birthday}" >
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> email:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_email" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_email}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 工作年限:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_job_age" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_job_age}" style="width: 70px;display: inline-block;">年
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 籍贯:</label>
+                        <div class="col-sm-5" id="jiguan">
+                            <select class="prov" name="detail_jiguan_province"></select> 
+                            <select class="city" disabled="disabled" name="detail_jiguan_city"></select>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 民族:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_minzu" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_minzu}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 婚姻状况:</label>
+                        <div class="col-sm-5" style="padding-top:5px;">
+                            <input type="radio" name="detail_hyzk"  id="inputname" placeholder="" value="未婚" <?php if($memberinfo['detail_info']['detail_hyzk']!='已婚' && $memberinfo['detail_info']['detail_hyzk']!='离异'){echo "checked='checked'";}?>>未婚
+                            <input type="radio" name="detail_hyzk"  id="inputname" placeholder="" value="已婚" <?php if($memberinfo['detail_info']['detail_hyzk']=='已婚'){echo "checked='checked'";}?>>已婚
+                            <input type="radio" name="detail_hyzk"  id="inputname" placeholder="" value="离异" <?php if($memberinfo['detail_info']['detail_hyzk']=='离异'){echo "checked='checked'";}?>>离异
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 血型:</label>
+                        <div class="col-sm-5">
+                            <select class="prov" name="detail_xuexing">
+                                <option value=""    <?php if($memberinfo['detail_info']['detail_xuexing']==''){echo "selected='selected'";}?>>请选择血型</option>
+                                <option value="A型" <?php if($memberinfo['detail_info']['detail_xuexing']=='A型'){echo "selected='selected'";}?>>A型</option>
+                                <option value="B型" <?php if($memberinfo['detail_info']['detail_xuexing']=='B型'){echo "selected='selected'";}?>>B型</option>
+                                <option value="AB型" <?php if($memberinfo['detail_info']['detail_xuexing']=='AB型'){echo "selected='selected'";}?>>AB型</option>
+                                <option value="O型" <?php if($memberinfo['detail_info']['detail_xuexing']=='O型'){echo "selected='selected'";}?>>O型</option>
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 体重:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_tizhong" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_tizhong}" style="width: 70px;display: inline-block;">KG
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 身高:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_shengao" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_shengao}" style="width: 70px;display: inline-block;">CM
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 政治面貌:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_zzmm" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_zzmm}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">技术职称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_jszc" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_jszc}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 学历:</label>
+                        <div class="col-sm-5">
+                            <select class="prov" name="detail_xueli">
+                            <option value="" <?php if($memberinfo['detail_info']['detail_xueli']==''){echo "selected='selected'";}?>>请选择</option>
+                            <option value="大专" <?php if($memberinfo['detail_info']['detail_xueli']=='大专'){echo "selected='selected'";}?>>大专</option>
+                            <option value="本科" <?php if($memberinfo['detail_info']['detail_xueli']=='本科'){echo "selected='selected'";}?>>本科</option>
+                            <option value="硕士" <?php if($memberinfo['detail_info']['detail_xueli']=='硕士'){echo "selected='selected'";}?>>硕士</option>
+                            <option value="博士" <?php if($memberinfo['detail_info']['detail_xueli']=='博士'){echo "selected='selected'";}?>>博士</option>
+                            <option value="MBA"  <?php if($memberinfo['detail_info']['detail_xueli']=='MBA'){echo "selected='selected'";}?>>MBA</option>
+                            <option value="EMBA" <?php if($memberinfo['detail_info']['detail_xueli']=='EMBA'){echo "selected='selected'";}?>>EMBA</option>
+                            <option value="中专" <?php if($memberinfo['detail_info']['detail_xueli']=='中专'){echo "selected='selected'";}?>>中专</option>
+                            <option value="中技" <?php if($memberinfo['detail_info']['detail_xueli']=='中技'){echo "selected='selected'";}?>>中技</option>
+                            <option value="高中" <?php if($memberinfo['detail_info']['detail_xueli']=='高中'){echo "selected='selected'";}?>>高中</option>
+                            <option value="初中" <?php if($memberinfo['detail_info']['detail_xueli']=='初中'){echo "selected='selected'";}?>>初中</option>
+                            <option value="其他" <?php if($memberinfo['detail_info']['detail_xueli']=='其他'){echo "selected='selected'";}?>>其他</option>
+                        </select> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_zhuanye" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_zhuanye}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">资格证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_zgzs" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_zgzs}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">健康状况:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_jkzk" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_jkzk}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 有无传染病史:</label>
+                        <div class="col-sm-5" style="padding-top:5px;">
+                            <input type="radio" name="detail_crb"  id="inputname" placeholder="" value="有" <?php if($memberinfo['detail_info']['detail_crb']!='无'){echo "checked='checked'";}?>>有
+                            <input type="radio" name="detail_crb"  id="inputname" placeholder="" value="无" <?php if($memberinfo['detail_info']['detail_crb']=='无'){echo "checked='checked'";}?>>无
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 户籍性质:</label>
+                        <div class="col-sm-5" style="padding-top:5px;">
+                            <input type="radio" name="detail_hjxz"  id="inputname" placeholder="" value="农业" <?php if($memberinfo['detail_info']['detail_hjxz']!='非农业'){echo "checked='checked'";}?>>农业
+                            <input type="radio" name="detail_hjxz"  id="inputname" placeholder="" value="非农业" <?php if($memberinfo['detail_info']['detail_hjxz']=='非农业'){echo "checked='checked'";}?>>非农业
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 户籍地址:</label>
+                        <div class="col-sm-5" id="detail_huji">
+                            <select class="prov" name="detail_huji_province"></select> 
+                            <select class="city" disabled="disabled" name="detail_huji_city"></select>
+                            <select class="dist" disabled="disabled" name="detail_huji_area"></select>
+                            <input type="text" class="form-control" name="detail_huji_address" id="inputPassword3" placeholder="请输入户籍详细地址" value="{$memberinfo.detail_info.detail_huji_address}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 家庭联系电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_home_phone" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_home_phone}" >
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">本人联系电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_phone" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_phone}" >
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 邮政编码:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_youbian" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_youbian}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">外语能力一:</label>
+                        <div class="col-sm-5">
+                            <select class="prov" name="detail_waiyu1">
+                                <option value="" <?php if($memberinfo['detail_info']['detail_waiyu1']==''){echo "selected='selected'";}?>>无</option>
+                                <option value="英语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='英语'){echo "selected='selected'";}?>>英语</option>
+                                <option value="日语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='日语'){echo "selected='selected'";}?>>日语</option>
+                                <option value="法语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='法语'){echo "selected='selected'";}?>>法语</option>
+                                <option value="德语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='德语'){echo "selected='selected'";}?>>德语</option>
+                                <option value="俄语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='俄语'){echo "selected='selected'";}?>>俄语</option>
+                                <option value="韩语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='韩语'){echo "selected='selected'";}?>>韩语</option>
+                                <option value="西班牙语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='西班牙语'){echo "selected='selected'";}?>>西班牙语</option>
+                                <option value="葡萄牙语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='葡萄牙语'){echo "selected='selected'";}?>>葡萄牙语</option>
+                                <option value="阿拉伯语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='阿拉伯语'){echo "selected='selected'";}?>>阿拉伯语</option>
+                                <option value="意大利语" <?php if($memberinfo['detail_info']['detail_waiyu1']=='意大利语'){echo "selected='selected'";}?>>意大利语</option>
+                                <option value="其他" <?php if($memberinfo['detail_info']['detail_waiyu1']=='其他'){echo "selected='selected'";}?>>其他</option>
+                            </select> 
+                            <select name="detail_waiyu1_value">
+                                <option value="一般" <?php if($memberinfo['detail_info']['detail_waiyu1_value']=='一般'){echo "selected='selected'";}?>>一般</option>
+                                <option value="良好" <?php if($memberinfo['detail_info']['detail_waiyu1_value']=='良好'){echo "selected='selected'";}?>>良好</option>
+                                <option value="熟练" <?php if($memberinfo['detail_info']['detail_waiyu1_value']=='熟练'){echo "selected='selected'";}?>>熟练</option>
+                                <option value="精通" <?php if($memberinfo['detail_info']['detail_waiyu1_value']=='精通'){echo "selected='selected'";}?>>精通</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">外语能力二:</label>
+                        <div class="col-sm-5">
+                            <select class="prov" name="detail_waiyu2">
+                                <option value="" <?php if($memberinfo['detail_info']['detail_waiyu2']==''){echo "selected='selected'";}?>>无</option>
+                                <option value="英语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='英语'){echo "selected='selected'";}?>>英语</option>
+                                <option value="日语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='日语'){echo "selected='selected'";}?>>日语</option>
+                                <option value="法语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='法语'){echo "selected='selected'";}?>>法语</option>
+                                <option value="德语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='德语'){echo "selected='selected'";}?>>德语</option>
+                                <option value="俄语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='俄语'){echo "selected='selected'";}?>>俄语</option>
+                                <option value="韩语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='韩语'){echo "selected='selected'";}?>>韩语</option>
+                                <option value="西班牙语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='西班牙语'){echo "selected='selected'";}?>>西班牙语</option>
+                                <option value="葡萄牙语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='葡萄牙语'){echo "selected='selected'";}?>>葡萄牙语</option>
+                                <option value="阿拉伯语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='阿拉伯语'){echo "selected='selected'";}?>>阿拉伯语</option>
+                                <option value="意大利语" <?php if($memberinfo['detail_info']['detail_waiyu2']=='意大利语'){echo "selected='selected'";}?>>意大利语</option>
+                                <option value="其他" <?php if($memberinfo['detail_info']['detail_waiyu2']=='其他'){echo "selected='selected'";}?>>其他</option>
+                            </select> 
+                            <select name="detail_waiyu2_value">
+                                <option value="一般" <?php if($memberinfo['detail_info']['detail_waiyu2_value']=='一般'){echo "selected='selected'";}?>>一般</option>
+                                <option value="良好" <?php if($memberinfo['detail_info']['detail_waiyu2_value']=='良好'){echo "selected='selected'";}?>>良好</option>
+                                <option value="熟练" <?php if($memberinfo['detail_info']['detail_waiyu2_value']=='熟练'){echo "selected='selected'";}?>>熟练</option>
+                                <option value="精通" <?php if($memberinfo['detail_info']['detail_waiyu2_value']=='精通'){echo "selected='selected'";}?>>精通</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 电脑能力:</label>
+                        <div class="col-sm-5">
+                            <select name="detail_dnnl">
+                                <option value="一般" <?php if($memberinfo['detail_info']['detail_dnnl']=='一般'){echo "selected='selected'";}?>>一般</option>
+                                <option value="良好" <?php if($memberinfo['detail_info']['detail_dnnl']=='良好'){echo "selected='selected'";}?>>良好</option>
+                                <option value="熟练" <?php if($memberinfo['detail_info']['detail_dnnl']=='熟练'){echo "selected='selected'";}?>>熟练</option>
+                                <option value="精通" <?php if($memberinfo['detail_info']['detail_dnnl']=='精通'){echo "selected='selected'";}?>>精通</option>
+                                <option value="不会" <?php if($memberinfo['detail_info']['detail_dnnl']=='不会'){echo "selected='selected'";}?>>不会</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">使用过的操作系统:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_czxt" class="form-control" id="inputname" placeholder="" value="{$memberinfo.detail_info.detail_czxt}" >
+                        </div>
+                    </div>
+                    
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>教育经历(由近及远) 
+                    </li>
+                </ol>
+            </div>
+</div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_ft1" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_ft1}" style="width: 100px;display: inline-block;"> -
+                            <input type="text" name="jyjl_et1" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_et1}" style="width: 100px;display: inline-block;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">学校名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_school1" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_school1}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_zhuanye" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_zhuanye}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">学习方式:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_xxfs" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_xxfs}">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所获证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_shzs" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_shzs}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_ft2" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_ft2}" style="width: 100px;display: inline-block;"> -
+                            <input type="text" name="jyjl_et2" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_et2}" style="width: 100px;display: inline-block;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">学校名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_school2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_school2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_zhuanye2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_zhuanye2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">学习方式:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_xxfs2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_xxfs2}">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所获证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_shzs2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jyjl_shzs2}">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i> 培训经历(由近及远)
+                    </li>
+                </ol>
+            </div>
+</div>             
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_ft1" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_ft1}" style="width: 100px;display: inline-block;"> -
+                            <input type="text" name="pxjl_et1" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_et1}" style="width: 100px;display: inline-block;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">培训机构名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_pxjgmc" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_pxjgmc}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_zhuanye" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_zhuanye}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">受训方式:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_sxfs" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_sxfs}">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所获证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_shzs" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_shzs}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_ft2" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_ft2}" style="width: 100px;display: inline-block;"> -
+                            <input type="text" name="pxjl_et2" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_et2}" style="width: 100px;display: inline-block;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">培训机构名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_pxjgmc2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_pxjgmc2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_zhuanye2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_zhuanye2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">受训方式:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_sxfs2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_sxfs2}">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所获证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_shzs2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.pxjl_shzs2}">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>工作经历(由近及远) 
+                    </li>
+                </ol>
+            </div>
+</div>             
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_ft1" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_ft1}" style="width: 100px;display: inline-block;"> -
+                            <input type="text" name="gzjl_et1" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_et1}" style="width: 100px;display: inline-block;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">工作单位名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_gzdwmc" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_gzdwmc}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">职务:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_zw" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_zw}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">证明人(上司):</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_zmr" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_zmr}">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">公司电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_phone" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_phone}">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_ft2" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_ft2}" style="width: 100px;display: inline-block;"> -
+                            <input type="text" name="gzjl_et2" class="form-control yeah_month" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_et2}" style="width: 100px;display: inline-block;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">工作单位名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_gzdwmc2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_gzdwmc2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">职务:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_zw2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_zw2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">证明人(上司):</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_zmr2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_zmr2}">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">公司电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_phone2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.gzjl_phone2}">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>家庭主要成员 
+                    </li>
+                </ol>
+            </div>
+</div>             
+
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_name" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_name}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">关系:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_guanxi" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_guanxi}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">年龄:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_age" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_age}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">职业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_zhiye" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_zhiye}">
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">联系电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_phone" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_phone}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">单位名称或住址:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_address" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_address}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_name2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_name2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">关系:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_guanxi2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_guanxi2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">年龄:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_age2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_age2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">职业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_zhiye2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_zhiye2}">
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">联系电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_phone2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_phone2}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">单位名称或住址:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_address2" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jtzycy_address2}">
+                        </div>
+                    </div>
+                    
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i> 紧急联系人
+                    </li>
+                </ol>
+            </div>
+</div>             
+
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jjlxr_name" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jjlxr_name}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">关系:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jjlxr_guanxi" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jjlxr_guanxi}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jjlxr_phone" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jjlxr_phone}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">地址:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jjlxr_address" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.jjlxr_address}">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i> 担保人/推荐人
+                    </li>
+                </ol>
+            </div>
+</div>             
+
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="dbr_name" class="form-control" id="" placeholder="" value="{$memberinfo.detail_info.dbr_name}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所属纵队:</label>
+                        <div class="col-sm-5">
+                            <select name="dbr_zongdui" id="" class="form-control">
+                                                  
+                                <option value='华阳' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华阳'){echo "selected='selected'";}?>>华阳</option>
+                                <option value='华选' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华选'){echo "selected='selected'";}?>>华选</option>
+                                <option value='华静' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华静'){echo "selected='selected'";}?>>华静</option>
+                                <option value='华文' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华文'){echo "selected='selected'";}?>>华文</option>
+                                <option value='华磊' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华磊'){echo "selected='selected'";}?>>华磊</option>
+                                <option value='华伟' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华伟'){echo "selected='selected'";}?>>华伟</option>
+                                <option value='华鑫' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华鑫'){echo "selected='selected'";}?>>华鑫</option>
+                                <option value='华芳' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华芳'){echo "selected='selected'";}?>>华芳</option>
+                                <option value='华军' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华军'){echo "selected='selected'";}?>>华军</option>
+                                <option value='华群' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华群'){echo "selected='selected'";}?>>华群</option>
+                                <option value='华杰' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华杰'){echo "selected='selected'";}?>>华杰</option>
+                                <option value='华英' <?php if($memberinfo['detail_info']['dbr_zongdui']=='华英'){echo "selected='selected'";}?>>华英</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#fff;">
+                   
+                    <li class="active">
+                        <i class="fa fa-exclamation-circle"></i> 本人保证以上资料均属实，公司对此可作核查，若有不实或虚构，本人愿意接受公司协议，并不作任何补偿
+                    </li>
+                </ol>
+            </div>
+</div>
+                                                
+                    <?php if($memberinfo || $isCommunity):?>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" id="singcms-button-submit2">提交</button>
+                        </div>
+                    </div>
+                    <?php else:?>
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" id="singcms-button-submit2">下一步</button>
+                        </div>
+                    <?php endif;?>
+                </form>
+
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- Morris Charts JavaScript -->
+<script>
+
+    var SCOPE = {
+        'save_url' : 'index.php?s=admin/user/setinfo',
+        <?php if($memberinfo):?>
+        'jump_url' : 'index.php?s=admin/user/index',
+        <?php else:?>
+        'jump_url' : 'index.php?s=admin/user/community',
+        <?php endif;?>
+    }
+
+<?php if($memberinfo['province']):?>
+        $("#tongxun_address").citySelect({
+                            prov: "{$memberinfo.province}",
+                            city: "{$memberinfo.city}",
+                            dist: "{$memberinfo.area}",
+                            nodata: "none"
+                        });
+        $("#jiguan").citySelect({
+                            prov: "{$memberinfo.detail_info.detail_jiguan_province}",
+                            city: "{$memberinfo.detail_info.detail_jiguan_city}",
+                            nodata: "none"
+                        });
+        $("#detail_huji").citySelect({
+                            prov: "{$memberinfo.detail_info.detail_huji_province}",
+                            city: "{$memberinfo.detail_info.detail_huji_city}",
+                            dist: "{$memberinfo.detail_info.detail_huji_area}",
+                            nodata: "none"
+                        });
+<?php else:?>
+        $("#tongxun_address").citySelect({
+                            prov: "江苏",
+                            city: "南京",
+                            dist: "玄武区",
+                            nodata: "none"
+                        });
+        $("#jiguan").citySelect({
+                            prov: "北京",
+                            city: "朝阳区",
+                            nodata: "none"
+                        });
+        $("#detail_huji").citySelect({
+                            prov: "江苏",
+                            city: "南京",
+                            dist: "玄武区",
+                            nodata: "none"
+                        });
+<?php endif;?>
+<?php if($memberinfo['province']):?>
+
+
+<?php else:?>
+$("#city_4").citySelect({
+                    prov: "江苏",
+                    city: "南京",
+                    dist: "玄武区",
+                    nodata: "none"
+                });
+
+<?php endif;?>
+//重选图片
+function unsetimg(){
+  $('#file_upload').css('display','');
+  $('#file_upload').click();
+}
+function unsetimg2(){
+  $('#file_upload2').css('display','');
+  $('#file_upload2').click();
+}
+
+$("#birthday").datepicker({ dateFormat: "yy-mm-dd",changeYear: true });
+$(".yeah_month").datepicker({ dateFormat: "yy-mm",changeYear: true });
+</script>
+{include file="index/footer"}
+
+
+
+
+

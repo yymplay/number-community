@@ -1,0 +1,102 @@
+
+{include file="index/header"}
+<body>
+
+<div id="wrapper">
+
+    {include file="index/nav"}
+
+    <div id="page-wrapper">
+
+    <div class="container-fluid" >
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-table"></i>列表
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+          
+        </div>
+        <div>
+          <button  id="button-add" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加 </button>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3></h3>
+                <div class="table-responsive">
+                    <form id="singcms-listorder">
+                    <table class="table table-bordered table-hover singcms-table">
+                        <thead>
+                        <tr>
+                            <th width="14">排序</th>
+                            <th>id</th>
+                            <th>菜单名</th>
+                            <th>模块名</th>
+                            <th>控制器</th>
+                            <th>方法</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($data as $vv):?>
+                            <tr>
+                                <td><input size="4" type="text" name="listorder[{$vv.id}]" value="{$vv.listorder}"/></td>
+                                <td>{$vv.id}</td>
+                                <td><?php echo str_repeat('&nbsp;', 16*$vv['level']).$vv['pri_name']; ?></td>
+                                <td>{$vv.module_name}</td>
+                                <td>{$vv.controller_name}</td>
+                                <td>{$vv.action_name}</td>
+                                <td><a href="javascript:void(0)"><span class="fa fa-edit fa-lg" aria-hidden="true" id="singcms-edit" attr-id="{$vv.id}"></span></a> &nbsp;   <a href="javascript:void(0)" attr-id="{$vv.id}" id="singcms-delete"  attr-a="menu" attr-message="删除"><span class="fa fa-times-circle fa-lg" aria-hidden="true"></span></a></td>
+                            </tr>
+                        <?php endforeach;?>
+
+                        </tbody>
+                    </table>
+                    </form>
+                    <nav>
+                        <ul class="pagination">
+                            {$pageRes}
+                        </ul>
+                    </nav>
+                    <div>
+                        <button  id="button-listorder" type="button" class="btn btn-primary dropdown-toggle" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>更新排序 </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- Morris Charts JavaScript -->
+<script>
+
+    var SCOPE = {
+        'add_url' : 'index.php?s=admin/privilege/add',
+        'edit_url' : 'index.php?s=admin/privilege/edit',
+        'set_status_url' : 'index.php?s=admin/privilege/setStatus',
+        'listorder_url' : 'index.php?s=admin/privilege/listorder',
+
+    }
+</script>
+{include file="index/footer"}
+
+
+

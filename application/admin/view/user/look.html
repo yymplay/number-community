@@ -1,0 +1,690 @@
+
+{include file="index/header"}
+<body>
+<script type="text/javascript" src="./js/jquery.cityselect.js"></script>
+<div id="wrapper">
+
+    {include file="index/nav"}
+
+    <div id="page-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="index.php?s=admin/user/index">用户列表</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div>
+          <button  id="button-add" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>认购社区 </button>
+        </div>
+                <table class="table table-bordered table-hover singcms-table">
+                        <thead>
+                        <tr>
+                            <th>项目</th>
+                            <th>流水号</th>
+    
+                            <th>费用</th>
+                            <th>推荐人</th>
+                            <th>认购时间</th>
+                            <th>社区号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($order as $v):?>
+                            <tr>
+                                <td><?php echo payType($v['type']);?></td>
+                                <td>{$v.order_id}</td>
+                                <td>{$v.price}</td>
+                                <td>{$v.recommend_name}</td>
+                                <td>{$v.create_time|date='Y-m-d H:i:s',###}</td>
+                                <td>{$v.community_id}</td>
+                            </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>基本信息 
+                    </li>
+                </ol>
+            </div>
+</div>
+                <form class="form-horizontal" id="singcms-form">
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="name" class="form-control" id="inputname" placeholder="" value="{$data.name}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">手机号:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="phone" class="form-control" id="inputname" placeholder="" value="{$data.account}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">身份证号:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="identity" id="inputPassword3" placeholder="" value="{$data.identity}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">身份证正反面:</label>
+                        <div class="col-sm-5">
+                        <?php if($data['sfzz']):?>
+                            <img src="/uploads/{$data.sfzz}" width="150" height="100"  style="cursor:pointer;">
+                        <?php endif;?>
+                        <?php if($data['sfzz']):?>
+                            <img src="/uploads/{$data.sfzf}" width="150" height="100"  style="cursor:pointer;">
+                        <?php endif;?>
+                        </div>
+                    </div>
+         
+
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">有效通讯地址:</label>
+                        <div class="col-sm-5" id="city_4">
+                            
+                            <input type="text" class="form-control" name="address" id="inputPassword3" placeholder="请输入详细地址" value="{$data.province} - {$data.city} - {$data.area} - {$data.address}" disabled="disabled">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>详细信息 
+                    </li>
+                </ol>
+            </div>
+</div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 性别:</label>
+                        <div class="col-sm-5" style="padding-top:5px;">
+                            <input type="text" class="form-control" id="inputname" placeholder="KG" value="{$data.detail_info.detail_sex}" style="width: 70px;" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 出生日期:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_birthday" class="form-control" id="birthday" placeholder="" value="{$data.detail_info.detail_birthday}" style="width: 150px;" disabled="disabled">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> email:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_email" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_email}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 工作年限:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_job_age" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_job_age}" style="width: 40px;display: inline-block;" disabled="disabled">年
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 籍贯:</label>
+                        <div class="col-sm-5" id="jiguan">
+                            <input type="text" class="form-control" value="{$data.detail_info.detail_jiguan_province} - {$data.detail_info.detail_jiguan_city}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 民族:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" value="{$data.detail_info.detail_minzu}" disabled="disabled">
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 婚姻状况:</label>
+                        <div class="col-sm-5" style="padding-top:5px;">
+                            <input type="text" class="form-control" value="{$data.detail_info.detail_hyzk}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 血型:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" value="{$data.detail_info.detail_xuexing}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 体重:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_tizhong" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_tizhong}" style="width: 70px;display: inline-block;" disabled="disabled">KG
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 身高:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_shengao" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_shengao}" style="width: 70px;display: inline-block;" disabled="disabled">CM
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 政治面貌:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" value="{$data.detail_info.detail_zzmm}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">技术职称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_jszc" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_jszc}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 学历:</label>
+                        <div class="col-sm-5">
+                            <?php if($data['detail_info']['detail_xueli']==''):?>
+                                <input type="text"  class="form-control" id="inputname" placeholder="" value="" disabled="disabled">
+                            <?php else:?>
+                                <input type="text"  class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_xueli}" disabled="disabled">
+                            <?php endif;?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_zhuanye" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_zhuanye}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">资格证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_zgzs" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_zgzs}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">健康状况:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_jkzk" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_jkzk}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 有无传染病史:</label>
+                        <div class="col-sm-5" style="padding-top:5px;">
+                            <input type="text" class="form-control" value="{$data.detail_info.detail_crb}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 户籍性质:</label>
+                        <div class="col-sm-5" style="padding-top:5px;">
+                            <input type="text" class="form-control" value="{$data.detail_info.detail_hjxz}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 户籍地址:</label>
+                        <div class="col-sm-5" id="detail_huji">
+                            <input type="text" class="form-control" value="{$data.detail_info.detail_huji_province} - {$data.detail_info.detail_huji_city}-{$data.detail_info.detail_huji_area}-{$data.detail_info.detail_huji_address}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 家庭联系电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_home_phone" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_home_phone}" disabled="disabled">
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">本人联系电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_phone" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_phone}" disabled="disabled">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 邮政编码:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_youbian" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_youbian}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">外语能力一:</label>
+                        <div class="col-sm-5">
+                            <?php if($data['detail_info']['detail_waiyu2']==''):?>
+                                <input type="text" name="detail_czxt" class="form-control" id="inputname" placeholder="" value="" disabled="disabled">
+                            <?php else:?>
+                                <input type="text" name="detail_czxt" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_waiyu1}-{$data.detail_info.detail_waiyu1_value}" disabled="disabled">
+                            <?php endif;?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">外语能力二:</label>
+                        <div class="col-sm-5">
+                            <?php if($data['detail_info']['detail_waiyu2']==''):?>
+                                <input type="text" name="detail_czxt" class="form-control" id="inputname" placeholder="" value="" disabled="disabled">
+                            <?php else:?>
+                                <input type="text" name="detail_czxt" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_waiyu2}-{$data.detail_info.detail_waiyu2_value}" disabled="disabled">
+                            <?php endif;?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label"><span style="color:red;">*</span> 电脑能力:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_czxt" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_dnnl}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">使用过的操作系统:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="detail_czxt" class="form-control" id="inputname" placeholder="" value="{$data.detail_info.detail_czxt}" disabled="disabled">
+                        </div>
+                    </div>
+                    
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>教育经历(由近及远) 
+                    </li>
+                </ol>
+            </div>
+</div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_ft1" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.jyjl_ft1}" style="width: 100px;display: inline-block;" disabled="disabled"> -
+                            <input type="text" name="jyjl_et1" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.jyjl_et1}" style="width: 100px;display: inline-block;" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">学校名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_school1" class="form-control" id="" placeholder="" value="{$data.detail_info.jyjl_school1}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_zhuanye" class="form-control" id="" placeholder="" value="{$data.detail_info.jyjl_zhuanye}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">学习方式:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_xxfs" class="form-control" id="" placeholder="" value="{$data.detail_info.jyjl_xxfs}" disabled="disabled">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所获证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_shzs" class="form-control" id="" placeholder="" value="{$data.detail_info.jyjl_shzs}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_ft2" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.jyjl_ft2}" style="width: 100px;display: inline-block;" disabled="disabled"> -
+                            <input type="text" name="jyjl_et2" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.jyjl_et2}" style="width: 100px;display: inline-block;" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">学校名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_school2" class="form-control" id="" placeholder="" value="{$data.detail_info.jyjl_school2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_zhuanye2" class="form-control" id="" placeholder="" value="{$data.detail_info.jyjl_zhuanye2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">学习方式:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_xxfs2" class="form-control" id="" placeholder="" value="{$data.detail_info.jyjl_xxfs2}" disabled="disabled">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所获证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jyjl_shzs2" class="form-control" id="" placeholder="" value="{$data.detail_info.jyjl_shzs2}" disabled="disabled">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i> 培训经历(由近及远)
+                    </li>
+                </ol>
+            </div>
+</div>             
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_ft1" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.pxjl_ft1}" style="width: 100px;display: inline-block;" disabled="disabled"> -
+                            <input type="text" name="pxjl_et1" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.pxjl_et1}" style="width: 100px;display: inline-block;" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">培训机构名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_pxjgmc" class="form-control" id="" placeholder="" value="{$data.detail_info.pxjl_pxjgmc}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_zhuanye" class="form-control" id="" placeholder="" value="{$data.detail_info.pxjl_zhuanye}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">受训方式:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_sxfs" class="form-control" id="" placeholder="" value="{$data.detail_info.pxjl_sxfs}" disabled="disabled">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所获证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_shzs" class="form-control" id="" placeholder="" value="{$data.detail_info.pxjl_shzs}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_ft2" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.pxjl_ft2}" style="width: 100px;display: inline-block;" disabled="disabled"> -
+                            <input type="text" name="pxjl_et2" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.pxjl_et2}" style="width: 100px;display: inline-block;" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">培训机构名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_pxjgmc2" class="form-control" id="" placeholder="" value="{$data.detail_info.pxjl_pxjgmc2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">专业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_zhuanye2" class="form-control" id="" placeholder="" value="{$data.detail_info.pxjl_zhuanye2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">受训方式:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_sxfs2" class="form-control" id="" placeholder="" value="{$data.detail_info.pxjl_sxfs2}" disabled="disabled">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所获证书:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="pxjl_shzs2" class="form-control" id="" placeholder="" value="{$data.detail_info.pxjl_shzs2}" disabled="disabled">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>工作经历(由近及远) 
+                    </li>
+                </ol>
+            </div>
+</div>             
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_ft1" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.gzjl_ft1}" style="width: 100px;display: inline-block;" disabled="disabled"> -
+                            <input type="text" name="gzjl_et1" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.gzjl_et1}" style="width: 100px;display: inline-block;" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">工作单位名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_gzdwmc" class="form-control" id="" placeholder="" value="{$data.detail_info.gzjl_gzdwmc}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">职务:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_zw" class="form-control" id="" placeholder="" value="{$data.detail_info.gzjl_zw}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">证明人(上司):</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_zmr" class="form-control" id="" placeholder="" value="{$data.detail_info.gzjl_zmr}" disabled="disabled">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">公司电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_phone" class="form-control" id="" placeholder="" value="{$data.detail_info.gzjl_phone}" disabled="disabled">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">起止年月:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_ft2" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.gzjl_ft2}" style="width: 100px;display: inline-block;" disabled="disabled"> -
+                            <input type="text" name="gzjl_et2" class="form-control yeah_month" id="" placeholder="" value="{$data.detail_info.gzjl_et2}" style="width: 100px;display: inline-block;" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">工作单位名称:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_gzdwmc2" class="form-control" id="" placeholder="" value="{$data.detail_info.gzjl_gzdwmc2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">职务:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_zw2" class="form-control" id="" placeholder="" value="{$data.detail_info.gzjl_zw2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">证明人(上司):</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_zmr2" class="form-control" id="" placeholder="" value="{$data.detail_info.gzjl_zmr2}" disabled="disabled">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">公司电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="gzjl_phone2" class="form-control" id="" placeholder="" value="{$data.detail_info.gzjl_phone2}" disabled="disabled">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i>家庭主要成员 
+                    </li>
+                </ol>
+            </div>
+</div>             
+
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_name" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_name}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">关系:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_guanxi" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_guanxi}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">年龄:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_age" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_age}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">职业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_zhiye" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_zhiye}" disabled="disabled">
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">联系电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_phone" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_phone}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">单位名称或住址:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_address" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_address}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_name2" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_name2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">关系:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_guanxi2" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_guanxi2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">年龄:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_age2" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_age2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">职业:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_zhiye2" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_zhiye2}" disabled="disabled">
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">联系电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_phone2" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_phone2}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">单位名称或住址:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jtzycy_address2" class="form-control" id="" placeholder="" value="{$data.detail_info.jtzycy_address2}" disabled="disabled">
+                        </div>
+                    </div>
+                    
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i> 紧急联系人
+                    </li>
+                </ol>
+            </div>
+</div>             
+
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jjlxr_name" class="form-control" id="" placeholder="" value="{$data.detail_info.jjlxr_name}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">关系:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jjlxr_guanxi" class="form-control" id="" placeholder="" value="{$data.detail_info.jjlxr_guanxi}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">电话:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jjlxr_phone" class="form-control" id="" placeholder="" value="{$data.detail_info.jjlxr_phone}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">地址:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="jjlxr_address" class="form-control" id="" placeholder="" value="{$data.detail_info.jjlxr_address}" disabled="disabled">
+                        </div>
+                    </div>
+<div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb" style="background-color:#ccc;">
+                   
+                    <li class="active">
+                        <i></i> 担保人/推荐人
+                    </li>
+                </ol>
+            </div>
+</div>             
+
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">姓名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="dbr_name" class="form-control" id="" placeholder="" value="{$data.detail_info.dbr_name}" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">所属纵队:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" value="{$data.detail_info.dbr_zongdui}" disabled="disabled">
+                        </div>
+                    </div>                    
+
+                    <!-- <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" id="singcms-button-submit2">下一步</button>
+                        </div>
+                    </div> -->
+                </form>
+                
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- Morris Charts JavaScript -->
+<script>
+
+    var SCOPE = {
+        'add_url' : 'index.php?s=admin/user/community/member_id/{$member_id}',
+        'save_url' : 'index.php?s=admin/user/setinfo',
+        'jump_url' : 'index.php?s=admin',
+    }
+
+</script>
+{include file="index/footer"}
+
+
+
+
+

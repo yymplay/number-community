@@ -1,0 +1,207 @@
+{include file="index/header"}
+<body>
+
+<div id="wrapper">
+
+    {include file="index/nav"}
+
+<div id="page-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- <h1 class="page-header">
+                    您好
+                    {$Request.session.user.nickname}
+                    !欢迎使用数字未来管理平台
+                </h1> -->
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-dashboard"></i> 平台整理指标
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-comments fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{$memberCount}</div>
+                                <div>注册用户</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                      <!--   <div class="panel-footer">
+                            <span class="pull-left"></span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix">查看</div>
+                        </div> -->
+                    
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{$memberInfoCount}</div>
+                                <div>信息完善</div>
+                            </div>
+                        </div>
+                    </div>
+                   <!--  <a href="/admin.php?c=content&a=index">
+                        <div class="panel-footer">
+                            <span class="pull-left">查看</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a> -->
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa glyphicon glyphicon-asterisk  fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{$payCount}</div>
+                                <div>付费人数</div>
+                            </div>
+                        </div>
+                    </div>
+                   <!--  <a target="_blank" href="/index.php?c=detail&id=$news.news_id">
+                        <div class="panel-footer">
+                            <span class="pull-left"></span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix">查看</div>
+                        </div>
+                    </a> -->
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-support fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{$priceCount}</div>
+                                <div>本月付费</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <a href="/admin.php?c=position">
+                        <div class="panel-footer">
+                            <span class="pull-left">查看</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+<style>
+    dl {
+        margin:0;
+        padding:0 0 15px 0;
+       
+        height:auto;
+        background:#fff url(bar.gif) bottom left no-repeat;
+    }
+    dt {
+        text-align:center;
+        font-size:14px;       
+        background-color: #1fcd98;
+        color: #fff;
+        width: 300px;
+        height: 3em;
+        line-height: 3em;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        border-radius:5px ;
+    }
+    dd {
+        margin:0;
+        display:block;
+        border: 1px solid #1fcd98;
+        height:2em;
+        background:#fff;       
+        font-size:12px;
+        border-radius:3px;
+        margin-bottom: 8px;
+    }
+    dd b {
+        float:left;
+        display:block;
+        margin-left:auto;
+        background:#1fcd98;
+        color: #000;
+        height:1.9em;
+        border-radius:3px ;
+        line-height:2em;
+        text-align:right;
+        font-size:12px;
+        font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+        text-indent: 1em;
+        overflow: hidden;
+        /*min-width: 5%;*/
+    }
+    dd.p670 b {width:99.5%;}
+    dd.p67 b {width:93.3%;}
+    dd.p12 b {width:98.8%;}
+    dd.p197 b {width:80.3%;}
+    dd.p26 b {width:97.3%;}
+    dd.p08 b {width:99.2%;}
+</style>
+
+        <div class="row">
+        <div class="col-lg-12">
+            <dl>
+<dt>地区付费统计 {$provinceCount}笔订购记录</dt>
+<?php foreach($province31 as $v):
+    //$baifenbi=round(($province[$v]['count']/$provinceCount)*100);
+    //$jindutiao=100-$baifenbi;
+    //if($jindutiao==100) $jindutiao-=0.5;
+?>
+<!-- <dd class=""><b style="width:<?php echo $baifenbi;?>%;color: #fff;text-align:left;font-weight:normal ;">{$v} = {$baifenbi}% </b></dd> -->
+<?php endforeach;?>
+
+<?php foreach($province as $k=>$v):
+    $baifenbi=round(($v['count']/$provinceCount)*100);
+?>
+<dd class=""><b style="width:<?php echo $baifenbi;?>%;color: #fff;text-align:left;font-weight:normal ;">{$k} = {$v.count} 笔{$v.price}元 占比{$baifenbi}%</b></dd>
+<?php endforeach;?>                                
+</dl>
+
+        </div>
+        </div>
+
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+<!-- Morris Charts JavaScript -->
+
+</div>
+    <!-- /#wrapper -->
+
+{include file="index/footer"}

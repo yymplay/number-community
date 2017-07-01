@@ -1,0 +1,23 @@
+/*wap css reset*/
+* {margin: 0;padding: 0;outline: none;-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;} 
+*:not(input,textarea) {-webkit-touch-callout: inherit; -webkit-user-select: auto;}
+*:after, 
+*:before{-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+a {text-decoration: none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+a:hover {text-decoration: none;}
+img {border: none;}
+button,input,select,textarea {margin: 0;padding: 0;outline: none;}
+dt,dd {display: inline-block;}
+textarea,input {resize: none;outline: none;border: none;}
+textarea {resize: none;-webkit-appearance: none;}
+ul,ol,li {list-style: none;}
+em {font-style: normal;}
+.clear{clear: both;}
+.rel{position: relative;}
+.abs{position: absolute;}
+.fix{position: fixed;}
+.l{float:left;}
+.r{float:right;}
+.c{clear:both;}
+.n{display: none;}
+

@@ -1,0 +1,103 @@
+
+{include file="index/header"}
+<body>
+
+<div id="wrapper">
+
+    {include file="index/nav"}
+
+    <div id="page-wrapper">
+
+    <div class="container-fluid" >
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-table"></i>列表
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            
+        </div>
+        <div>
+          <button  id="button-add" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加 </button>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3></h3>
+                <div class="table-responsive">
+                    <form id="singcms-listorder">
+                    <table class="table table-bordered table-hover singcms-table">
+                        <thead>
+                        <tr>
+                            
+                            <th>id</th>
+                            <th>姓名</th>
+                            <th>账号</th>
+                            <th>手机号</th>
+                            <th>所在组</th>
+                            <th>最近登录时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($data as $vv):?>
+                            <tr>
+                                
+                                <td>{$vv.id}</td>
+                                <td>{$vv.nickname}</td>
+                                <td>{$vv.username}</td>
+                                <td>{$vv.account}</td>
+                                <td>{$vv.role_name}</td>
+                                <td>{$vv.last_time|date="Y-m-d H:i:s",###}</td>
+                                <td><?php echo $vv['status']==1?"正常":"禁用";?></td>
+                                <td><a href="javascript:void(0)"><span class="fa fa-edit fa-lg" aria-hidden="true" id="singcms-edit" attr-id="{$vv.id}"></span></a> &nbsp;   <a href="javascript:void(0)" attr-id="{$vv.id}" id="singcms-delete"  attr-a="menu" attr-message="删除"><span class="fa fa-times-circle fa-lg" aria-hidden="true"></span></a></td>
+                            </tr>
+                        <?php endforeach;?>
+
+                        </tbody>
+                    </table>
+                    </form>
+                    <nav>
+                        <ul class="pagination">
+                            {$pageRes}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- Morris Charts JavaScript -->
+<script>
+
+    var SCOPE = {
+        'add_url' : 'index.php?s=admin/admin/add',
+        'edit_url' : 'index.php?s=admin/admin/edit',
+        'set_status_url' : 'index.php?s=admin/admin/setStatus',
+        'listorder_url' : 'index.php?s=admin/admin/listorder',
+
+    }
+</script>
+{include file="index/footer"}
+
+
+

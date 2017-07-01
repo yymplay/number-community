@@ -1,0 +1,51 @@
+<?php 
+$index='index';
+$tubiao=['user'=>'fa-address-card','sales'=>'fa-money','shop'=>'fa-shopping-cart','admin'=>'fa-user','role'=>'fa-group','privilege'=>'fa-unlock-alt'];
+?>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    
+    <a class="navbar-brand fa fa-cubes" >&ensp;数字未来管理平台</a>
+  </div>
+  <!-- Top Menu Items -->
+  <ul class="nav navbar-right top-nav">
+    
+    
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> {$Request.session.user.nickname} <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <!-- <li>
+          <a href="/admin.php?c=admin&a=personal"><i class="fa fa-fw fa-user"></i> 个人中心</a>
+        </li> -->
+       
+        <li class="divider"></li>
+        <li>
+          <a href="index.php?s=admin/login/loginout"><i class="fa fa-fw fa-power-off"></i> 退出</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav nav_list">
+      <li {$index|getActive}>
+        <a href="index.php"><i class="fa fa-home fa-lg"></i> 首页</a>
+      </li>
+      <?php foreach($menu as $v):?>
+      <li <?php echo getActive($v['controller_name']);?>>
+        <a href="index.php?s=admin/{$v.controller_name}/{$v.action_name}"><i class="fa <?php echo $tubiao[$v['controller_name']];?>"></i> {$v.pri_name}</a>
+      </li>
+     <?php endforeach;?>
+     
+      <!-- <volist name="navs" id="navo">
+      <li $navo.c|getActive>
+        <a href="$navo|getAdminMenuUrl"><i class="fa fa-fw fa-bar-chart-o"></i> $navo.name</a>
+      </li>
+      </volist> -->
+      
+    </ul>
+  </div>
+  <!-- /.navbar-collapse -->
+</nav>

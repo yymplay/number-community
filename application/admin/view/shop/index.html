@@ -1,0 +1,188 @@
+
+{include file="index/header"}
+<!-- 时间插件 -->
+<link href="./datepicker/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="./datepicker/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./datepicker/datepicker-zh_cn.js"></script>
+<body>
+
+<div id="wrapper">
+
+    {include file="index/nav"}
+
+    <div id="page-wrapper">
+
+    <div class="container-fluid" >
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-table"></i>购买记录
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div>
+          <button  id="button-add" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加 </button>
+        </div>
+        <div class="row">
+        <form action="/index.php" method="GET">
+        <input type="hidden" name="s" value="admin/shop/index"/>
+          <div class="col-md-3" style="width:auto;">
+            <div class="input-group">
+              
+              <span class="input-group-addon" style="width:30px;">工委</span>
+              <select name="gongwei" class="form-control" >
+                                <option value=''>全部</option>                  
+                                <option value='安徽'>安徽</option><option value='北京'>北京</option><option value='福建'>福建</option><option value='上海'>上海</option><option value='天津'>天津</option>
+                                <option value='山西'>山西</option><option value='贵州'>贵州</option><option value='河北'>河北</option><option value='浙江'>浙江</option><option value='江苏'>江苏</option>
+                                <option value='甘肃'>甘肃</option><option value='四川'>四川</option><option value='西藏'>西藏</option><option value='云南'>云南</option><option value='重庆'>重庆</option>
+                                <option value='青海'>青海</option><option value='新疆'>新疆</option><option value='河南'>河南</option><option value='湖南'>湖南</option><option value='吉林'>吉林</option>
+                                <option value='江西'>江西</option><option value='辽宁'>辽宁</option><option value='山东'>山东</option><option value='陕西'>陕西</option><option value='广西'>广西</option>
+                                <option value='宁夏'>宁夏</option><option value='黑龙江'>黑龙江</option><option value='内蒙古'>内蒙古</option><option value='海南'>海南</option><option value='湖北'>湖北</option>
+                                <option value='广东'>广东</option>                            
+             </select>
+             <span class="input-group-addon" style="width:30px;">纵队</span>
+              <select name="zongdui" class="form-control" >
+                                <option value=''>全部</option>                 
+                                <option value='华阳'>华阳</option>
+                                <option value='华选'>华选</option>
+                                <option value='华静'>华静</option>
+                                <option value='华文'>华文</option>
+                                <option value='华磊'>华磊</option>
+                                <option value='华伟'>华伟</option>
+                                <option value='华鑫'>华鑫</option>
+                                <option value='华芳'>华芳</option>
+                                <option value='华军'>华军</option>
+                                <option value='华群'>华群</option>
+                                <option value='华杰'>华杰</option>
+                                <option value='华英'>华英</option>
+                                
+                </select>
+            <span class="input-group-addon" style="width:30px;">下单时间</span>
+            <input class="form-control" name="ft" id="ft" type="text" value="{$ft}" placeholder="开始时间" style="width:auto;" value="{$ft}"/>
+            <input class="form-control" name="et" id="et" type="text" value="{$et}" placeholder="结束时间" style="width:auto;" value="{$et}"/>
+            <span class="input-group-addon" style="width:30px;">搜索条件</span>
+              <select class="form-control" name="type" >
+                  <option value='0' <?php if($type==0){echo "selected='selected'";}?> >全部</option>
+                  <option value="1" <?php if($type==1){echo "selected='selected'";}?> >订单号</option>
+                  <option value="2" <?php if($type==2){echo "selected='selected'";}?> >社区编号</option>         
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3" style="width:auto;">
+            <div class="input-group">
+              
+              
+                <input class="form-control" name="search_keywords" type="text" value="{$search_keywords}" placeholder="搜索关键字" />
+                <span class="input-group-btn"  style="width:30px;">
+                  <button id="sub_data" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+          </div>
+        </form>
+      </div>
+        <div class="row">
+            <div class="col-lg-6" style="width: 100%;">
+                <h3></h3>
+                <div class="table-responsive">
+                    <form id="singcms-listorder">
+                    <table class="table table-bordered table-hover singcms-table">
+                        <thead>
+                        <tr>
+                            
+                            <th>订单号</th>
+                            <th>社区编号</th>
+                            <th>认购人</th>
+                            <th>认购人电话</th>
+                            <th>推荐人</th>
+                            <th>推荐人电话</th>
+                            <th>工委</th>
+                            <th>纵队</th>
+                            <th>下单时间</th>
+                            <th>来源</th>
+                            <th>支付方式</th>
+                            <th>支付状态</th>
+
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($data as $vv):?>
+                            <tr>
+                                
+                                <td>{$vv.order_id}</td>
+                                <td>{$vv.community_id}</td>
+                                <td>{$vv.name}</td>
+                                <td>{$vv.account}</td>
+                                <td>{$vv.recommend_name}</td>
+                                <td>{$vv.recommend_phone}</td>
+                                <td>{$vv.gongwei}</td>
+                                <td>{$vv.zongdui}</td>
+                                <td>{$vv.create_time|date='Y-m-d H:i:s',###}</td>
+                                <?php if($vv['admin_id']!==0):?>
+                                <td>[{$vv.nickname}]添加</td>
+                                <?php else:?>
+                                <td>APP内购</td>    
+                                <?php endif;?>
+                                <td>{$vv.pay_method}</td>
+                                <td ><?php echo getStatus($vv['status'],'√','×');?></td>
+
+                                
+
+
+                            </tr>
+                        <?php endforeach;?>
+
+                        </tbody>
+                    </table>
+                    </form>
+                    <nav>
+                        
+                            {$data->render()}
+                        
+                    </nav>
+                   
+                </div>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- Morris Charts JavaScript -->
+<script>
+
+    var SCOPE = {
+        'add_url' : 'index.php?s=admin/user/add',
+        'edit_url' : 'index.php?s=admin/user/setinfo',
+        'look_url' : 'index.php?s=admin/user/look',
+        'set_status_url' : 'index.php?s=admin/user/setStatus',
+        'listorder_url' : 'index.php?s=admin/user/listorder',
+
+    }
+$('select[name="gongwei"]').val("{$gongwei}");
+$('select[name="zongdui"]').val("{$zongdui}");
+$("#ft").datepicker({ dateFormat: "yy-mm-dd" });
+$("#et").datepicker({ dateFormat: "yy-mm-dd" });
+</script>
+{include file="index/footer"}
+
+
+

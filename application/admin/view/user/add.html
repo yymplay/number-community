@@ -1,0 +1,119 @@
+
+{include file="index/header"}
+<body>
+
+<div id="wrapper">
+
+    {include file="index/nav"}
+
+    <div id="page-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="index.php?s=admin/user/index">用户列表</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-edit"></i> 添加用户
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-6">
+
+                <form class="form-horizontal" id="singcms-form">
+                    
+                    
+                   <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">手机号:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="account" id="account" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">密码:</label>
+                        <div class="col-sm-5">
+                            <input type="password" class="form-control" name="password" id="" placeholder="" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" id="singcms-button-submit-user-add">下一步</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- Morris Charts JavaScript -->
+<script>
+
+    var SCOPE = {
+        'save_url' : 'index.php?s=admin/user/add',
+        'jump_url' : 'index.php?s=admin/user/setinfo',
+        'sendmsg_url' : 'index.php?s=index/msg/sendmsg',
+    }
+// function sendmsg(){
+//     var tel = $("#account").val();
+//     var status=false;
+//     var re=/^1\d{10}$/;
+//     if(tel==''){
+//         return dialog.error("手机号不为空！!!!!");
+//     }
+//     if(!re.test(tel)){
+//         return dialog.error("手机号格式不正确！!!!");
+//     }
+
+
+
+//     console.log(postData);
+//     // 将获取到的数据post给服务器
+//     var url = SCOPE.send_sendmsg;
+    
+//     //var url = "/Mobile/Public/checktel";
+//         $.ajax({
+//             type: "POST",
+//             url: url,
+//             data: "account="+tel,
+//             async:false,
+//             success: function(result){
+
+//                 if(result.status == 1) {
+//                     //成功
+//                     $('#register-get-checkcode').html('发送成功!');
+//                     return;
+//                 }else if(result.status == 0) {
+//                         // 失败
+//                     return dialog.error(result.info);
+//         }
+//             }
+//         });
+// }
+</script>
+{include file="index/footer"}
+
+
+
+
+

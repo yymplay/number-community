@@ -1,0 +1,110 @@
+
+{include file="index/header"}
+<body>
+
+<div id="wrapper">
+
+    {include file="index/nav"}
+
+    <div id="page-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="index.php?s=admin/role/index">管理组列表</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-edit"></i> 添加
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-6">
+
+                <form class="form-horizontal" id="singcms-form">
+                    <!-- <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">上级权限:</label>
+                        <div class="col-sm-5">
+                            <select name="parent_id" id="" class="form-control">
+                                <option value="0">顶级权限</option>
+                                <?php foreach ($parentData as $k => $v): ?>                     <option value="<?php echo $v['id']; ?>"><?php echo str_repeat('-', 8*$v['level']).$v['pri_name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">组名:</label>
+                        <div class="col-sm-5">
+                            <input type="text" name="role_name" class="form-control" id="inputname" placeholder="请填写权限名">
+                        </div>
+                    </div>
+                  <div class="form-group">
+                        
+                        <table class="table table-bordered table-hover singcms-table" style="margin-left:70px;width:auto;">
+                        <thead>
+                        <tr>
+                            <th>&nbsp;&nbsp;&nbsp;权限</th>
+                         
+                            <th></th>
+ 
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($parentData as $vv):?>
+                            <tr>
+                           
+                                <td align="center"><input size="4" type="checkbox" name="pris[]" value="{$vv.id}"/></td>
+                                <td><?php echo str_repeat('&nbsp;', 16*$vv['level']).$vv['pri_name']; ?></td>
+                          
+                            </tr>
+                        <?php endforeach;?>
+
+                        </tbody>
+                    </table>
+                    </div>
+
+    
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-default" id="singcms-button-submit">提交</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- Morris Charts JavaScript -->
+<script>
+
+    var SCOPE = {
+        'save_url' : 'index.php?s=admin/role/add',
+        'jump_url' : 'index.php?s=admin/role',
+    }
+</script>
+{include file="index/footer"}
+
+
+
+
+

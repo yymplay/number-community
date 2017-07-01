@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>档案中心</title>
+    <link rel="stylesheet" type="text/css" href="css/ui.css">
+    <link href="favicon.ico" type="image/x-icon" rel="icon">
+    <link href="iTunesArtwork@2x.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+    <script src="./admin/js/jquery.js"></script>
+    <script type="text/javascript" src="./js/jquery.cityselect.js"></script>
+    <script src="./admin/js/dialog/layer.js"></script>
+    <script src="./admin/js/dialog.js"></script>
+</head>
+
+<body>
+<div class="aui-container">
+    <div class="aui-page">
+        <!-- <div class="aui-t-header">
+            <div class="header">
+                <div class="header-background"></div>
+                <div class="toolbar statusbar-padding">
+                    <button class="bar-button back-button"  onclick="history.go(-1);"><i class="icon icon-back"></i></button>
+                    <div class="header-title">
+                        <div class="title">档案中心</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="devider b-line"></div> -->
+        <form id="form">
+        <!-- 单选复选表单 begin -->
+        <div class="aui-form-content">
+            <div class="aui-pu-list">
+                <h2><strong>基础信息</strong></h2>
+                <div class="aui-form-cells">
+            <?php if($memberinfo){
+                       $disabled="disabled='disabled'";
+                ?>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>姓名:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <input type="text" value="{$memberinfo.name}" {$disabled}>
+                        </div>
+                    </div>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>身份证号:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <input type="text" value="{$memberinfo.identity}" {$disabled}>
+                        </div>
+                    </div>
+
+
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>地址:</label>
+                        </div>
+                        
+                        <div class="aui-form-cell-tb">
+                            <input type="text" value="{$memberinfo.province} {$memberinfo.city} {$memberinfo.area}" {$disabled}>
+                        </div>
+                        
+                    </div>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>详细地址:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <input type="text" class="form-control" value="{$memberinfo.address}" {$disabled}>
+                        </div>
+                    </div>
+            <?php }else{?>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>姓名:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <input type="text" name="name" placeholder="请输入姓名">
+                        </div>
+                    </div>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>身份证号:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <input type="text" name="identity" placeholder="请输入身份证号">
+                        </div>
+                    </div>
+
+
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>地址:</label>
+                        </div>
+                        
+                        <div class="" id="city_4">
+                            <select class="prov" name="province"></select> 
+                            <select class="city" name="city"></select>
+                            <select class="dist" name="area"></select>
+                        </div>       
+                    </div>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>详细地址:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <input type="text" class="form-control" name="address">
+                        </div>
+                    </div>
+            <?php }?>
+                </div>
+                <h2><strong>推荐人信息</strong></h2>
+                <div class="aui-form-cells">
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>纵队:</label>
+                        </div>
+                        <div class="">
+                            <select name="zongdui" id="">
+                                                  
+                                <option value='安徽'>华阳</option>
+                                <option value='安徽'>华选</option>
+                                <option value='安徽'>华静</option>
+                                <option value='安徽'>华文</option>
+                                <option value='安徽'>华磊</option>
+                                <option value='安徽'>华伟</option>
+                                <option value='安徽'>华鑫</option>
+                                <option value='安徽'>华芳</option>
+                                <option value='安徽'>华军</option>
+                                <option value='安徽'>华群</option>
+                                <option value='安徽'>华杰</option>
+                                <option value='安徽'>华英</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>工委:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <select name="gongwei" id="" class="form-control">
+                                                  
+                                <option value='安徽'>安徽</option><option value='北京' selected>北京</option><option value='福建'>福建</option><option value='上海'>上海</option><option value='天津'>天津</option><option value='山西'>山西</option><option value='贵州'>贵州</option><option value='河北'>河北</option><option value='浙江'>浙江</option><option value='江苏'>江苏</option><option value='甘肃'>甘肃</option><option value='四川'>四川</option><option value='西藏'>西藏</option><option value='云南'>云南</option><option value='重庆'>重庆</option><option value='青海'>青海</option><option value='新疆'>新疆</option><option value='河南'>河南</option><option value='湖南'>湖南</option><option value='吉林'>吉林</option><option value='江西'>江西</option><option value='辽宁'>辽宁</option><option value='山东'>山东</option><option value='陕西'>陕西</option><option value='广西'>广西</option><option value='宁夏'>宁夏</option><option value='黑龙江'>黑龙江</option><option value='内蒙古'>内蒙古</option><option value='海南'>海南</option><option value='湖北'>湖北</option><option value='广东'>广东</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>姓名:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <input type="text" placeholder="请输入姓名">
+                        </div>
+                    </div>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>手机号:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <input type="text" placeholder="请输入手机号">
+                        </div>
+                    </div>
+                </div>
+                <h2><strong>社区选择</strong></h2>
+                <div class="aui-form-cells">
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>所在城市:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <select class="form-control" name="province" id="province" style="width:90px;display:inline-block;">
+                                <option selected>请选择</option>
+                                <option value='安徽'>安徽</option><option value='北京'>北京</option><option value='福建'>福建</option><option value='上海'>上海</option><option value='天津'>天津</option><option value='山西'>山西</option><option value='贵州'>贵州</option><option value='河北'>河北</option><option value='浙江'>浙江</option><option value='江苏'>江苏</option><option value='甘肃'>甘肃</option><option value='四川'>四川</option><option value='西藏'>西藏</option><option value='云南'>云南</option><option value='重庆'>重庆</option><option value='青海'>青海</option><option value='新疆'>新疆</option><option value='河南'>河南</option><option value='湖南'>湖南</option><option value='吉林'>吉林</option><option value='江西'>江西</option><option value='辽宁'>辽宁</option><option value='山东'>山东</option><option value='陕西'>陕西</option><option value='广西'>广西</option><option value='宁夏'>宁夏</option><option value='黑龙江'>黑龙江</option><option value='内蒙古'>内蒙古</option><option value='海南'>海南</option><option value='湖北'>湖北</option><option value='广东'>广东</option>
+                            </select> 
+                            <select class="form-control" name="city" id="city"style="width:90px;display:inline-block;">
+                            <option selected>请选择</option>
+                            </select>
+                            <select class="form-control"  name="area" id="area" style="width:90px;display:inline-block;"><option selected>请选择</option></select>
+                        </div>
+                    </div>
+                    <div class="aui-form-cell b-line">
+                        <div class="aui-form-cell-td">
+                            <label>社区编号:</label>
+                        </div>
+                        <div class="aui-form-cell-tb">
+                            <select name="community_id" id="community_id" class="form-control" >
+                                                  
+                                <option value=''>请选择</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="aui-btn-list">
+                <a href="javascript:;" class="btn aui-aui-btn" id="button-submit">下一步</a>
+            </div>
+
+        </div>
+        <!-- 单选复选表单 end -->
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+var SCOPE = {
+        'save_url' : 'index.php?s=index/community/archivecenter/token/<?php echo $token;?>',
+        'jump_url' : 'index.php?s=index/community/archivecenter/token/<?php echo $token;?>',
+
+}
+
+$("#city_4").citySelect({
+                    prov: "江苏",
+                    city: "南京",
+                    dist: "玄武区",
+                    nodata: "none"
+                });
+$("#province").change(function(){
+
+
+    // 将获取到的数据post给服务器
+    url = 'index.php?s=admin/common/getcity/province/'+$("#province").val();
+
+    $.post(url,{},function(result){
+        if(result.status == 1) {
+                //成功
+                //清除city和 area
+                $("#city").empty();
+                $("#area").empty();
+                $("#community_id").empty();
+                $("#city").append("<option value=''>请选择</option>");
+                $("#area").append("<option value=''>请选择</option>");
+                $("#community_id").append("<option value=''>请选择</option>");
+                $(result.data.city).each(function(i){
+                    $("#city").append("<option value='"+this+"'>"+this+"</option>");
+               });
+        }else if(result.status == 0) {
+
+        }
+    },"JSON");
+});
+$("#city").change(function(){
+  
+
+    // 将获取到的数据post给服务器
+    url = 'index.php?s=admin/common/getarea/city/'+$("#province").val()+'_'+$("#city").val();
+
+    $.post(url,{},function(result){
+        if(result.status == 1) {
+                //成功
+                //清除 area
+
+                $("#area").empty();
+                $("#community_id").empty();
+                $("#area").append("<option value=''>请选择</option>");
+                $("#community_id").append("<option value=''>请选择</option>");
+                $(result.data.city).each(function(i){
+                    $("#area").append("<option value='"+this+"'>"+this+"</option>");
+               });
+        }else if(result.status == 0) {
+
+        }
+    },"JSON");
+});
+$("#area").change(function(){
+
+    // 将获取到的数据post给服务器
+    url = 'index.php?s=admin/common/getcommunity/province/'+$("#province").val()+'/city/'+$("#city").val()+'/area/'+$("#area").val();
+
+    $.post(url,{},function(result){
+        if(result.status == 1) {
+                //成功
+                //清除 area
+
+                $("#community_id").empty();
+
+                $(result.data.city).each(function(i){
+                    console.log(this);
+                    $("#community_id").append("<option value='"+this.community_id+"'>"+this.community_id+"</option>");
+               });
+        }else if(result.status == 0) {
+
+        }
+    },"JSON");
+});
+// $("#button-submit").click(function(){
+
+//     var data = $("#form").serializeArray();
+//     postData = {};
+//     $(data).each(function(i){
+
+//         if(this.name=='pris[]'){
+//             if(!postData[this.name])
+//                 postData[this.name]='';
+//             postData[this.name] += this.value+',';
+//         }else{
+//             postData[this.name] = this.value;
+//         }
+       
+//     });
+
+//     console.log(postData);
+//     // 将获取到的数据post给服务器
+//     url = SCOPE.save_url;
+//     jump_url = SCOPE.jump_url;
+//     $.post(url,postData,function(result){
+//         if(result.status == 1) {
+//             //成功
+//             return dialog.success(result.info,jump_url);
+//         }else if(result.status == 0) {
+//             // 失败
+//             return dialog.error(result.info);
+//         }
+//     },"JSON");
+// });
+$("#button-submit").click(function(){
+    var data = new FormData($('#singcms-form')[0]);
+    $.ajax({
+        type: "post",
+        url: SCOPE.save_url,
+        //data: {da:document.getElementById("preview").src},
+        data:data,
+        dataType:"json",
+
+        //报错请加入以下三行，则ajax提交无问题
+        cache: false,  
+            processData: false,  
+            contentType: false,
+        success: function(result){
+            if(result.status == 1) {
+                //成功
+                return dialog.success(result.info,SCOPE.jump_url+'/member_id/'+result.data.id);
+            }else if(result.status == 0) {
+                // 失败
+                return dialog.error(result.info);
+            }
+        }
+    });
+});
+<?php if($memberinfo['province']):?>
+        $("#city_4").citySelect({
+                            prov: "{$memberinfo.province}",
+                            city: "{$memberinfo.city}",
+                            dist: "{$memberinfo.area}",
+                            nodata: "none"
+                        });
+<?php else:?>
+        $("#city_4").citySelect({
+                            prov: "江苏",
+                            city: "南京",
+                            dist: "玄武区",
+                            nodata: "none"
+                        });
+<?php endif;?>
+</script>
